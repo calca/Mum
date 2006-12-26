@@ -557,14 +557,14 @@ class windowBasic:
         
     
     def main(self):
-        gtk.threads_init()
+        gtk.gdk.threads_init()
         
         self.window.connect("delete_event", self.delete_event)
         self.window.show_all()
 
-        gtk.threads_enter()
+        gtk.gdk.threads_enter()
         gtk.main()
-        gtk.threads_leave()
+        gtk.gdk.threads_leave()
 
 
 

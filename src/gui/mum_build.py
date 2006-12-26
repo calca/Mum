@@ -146,17 +146,17 @@ class mum_build(Thread):
         self.__have_error= True
         self.terminate()
         self.__set_status_bar(error)
-        gtk.threads_enter()
+        gtk.gdk.threads_enter()
         self.statusbar.pop(self.id_status)
         gtk.threads_leave()
 
     def __set_status_bar(self,messaggio):
-        gtk.threads_enter()
+        gtk.gdk.threads_enter()
         if self.__status > 0:
             self.statusbar.pop(self.__status)
         self.__status  = self.statusbar.get_context_id("2")
         self.statusbar.push(self.__status,messaggio)
-        gtk.threads_leave()
+        gtk.gdk.threads_leave()
         
            
     def have_error(self):
@@ -197,10 +197,10 @@ class mum_build(Thread):
             
         # Corretta
         self.__set_status_bar(label.MUM_COMPLETED_OPERATION)
-        gtk.threads_enter()
+        gtk.gdk.threads_enter()
         self.progressbar.set_fraction(1.0)
         self.statusbar.pop(self.id_status)
-        gtk.threads_leave()
+        gtk.gdk.threads_leave()
         return True
         
     def __create_thumb(self):
@@ -316,7 +316,7 @@ class mum_build(Thread):
                              self.WebPassword,
                              os.path.join(label.MUM_THEME_LIST[self.theme],constants.MUM_THEME_INDEX),
                              self.path_ftp)
-        gtk.threads_enter()
+        gtk.gdk.threads_enter()
         self.progressbar.set_fraction(self.count/self.total)
-        gtk.threads_leave()
+        gtk.gdk.threads_leave()
         u.update(self.title_album,os.path.split(self.dest_album)[1])
