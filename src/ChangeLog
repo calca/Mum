@@ -1,0 +1,337 @@
+2004-03-13  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* gui/windowBasic.py (windowBasic.__stop_mum_build): fix busy cursor.
+
+2004-03-12  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* gui/callback.py (my_call.select_dir): fix bug sulla directory utilizzata
+
+	* gui/windowBasic.py (windowBasic.__execute): chiusi alcuni bug
+	sulla gestione degli errori :D
+	(windowBasic.__execute): fix bug: errorato return
+
+	* gui/callback.py (my_call.select_dir): vietata la selezione di file
+
+	* gui/windowBasic.py (windowBasic.__init__): fix bug sulla
+	risoluzione scelta.
+
+2004-03-11  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* gui/windowBasic.py (windowBasic): finalmente una gestione
+	dell'errore eccellente. qualcosa da affinare, ma finalemte la gui
+	non si blocca quando salta fuori un errore :D
+	(windowBasic): impostato i curosri a busy :D
+
+	da sistemare la progress bar e status bar. non mi convincono :D
+
+2004-03-10  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* gui/label.py: corretti alcuni label.
+
+	* gui/callback.py (my_call.empty_field): ripulite le funzioni inutili.
+
+	* gui/windowBasic.py (windowBasic.__stop_mum_build): function che
+	controlla se l'utente desidera veramente bloccare la creazione
+	della galleria.
+
+	* gui/mum_build.py (mum_build): good! il controllo del thread ora
+	funziona a dovere. dopo aver implementato i vari flag. Ora da
+	sistemare la parte di upload di resize delle immagine.
+	(mum_build): completato il controllo del thread.
+
+2004-03-09  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* gui/label.py (MUM_PROGDIALOG_ERROR_DIR): corrette alcune
+	stringhe sono state aggiornate.
+
+2004-03-08  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* gui/windowBasic.py (windowBasic.next): Aggiunte le descrizione
+	degli errori.
+
+	* gui/callback.py (my_call.__check_source): Aggiunta la
+	descrizione dell'errore.
+
+	* gui/label.py (MUM_ERROR_SPACE_ROOT): nuovi label per descrizione
+	degli errori
+
+	* lib/utils.py (utility.list_img): controllo che sia un path
+	valido quello passato.
+	(utility.count_img): Controllo path img valido
+
+2004-03-07  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* gui/windowBasic.py (windowBasic.next): aggiunti .grab_focus() ai
+	widget della parte di upload
+
+	* gui/label.py (MUM_TITLE_WINDOW): HIG name 
+
+	* gui/mum_build.py (mum_build.__upload_gallery): pulitura dialog
+	inutili e primo port al nuovo comportamneto della gui.
+	(mum_build.__update_index): corretti gli errori di aggiornamento
+	della progress bar. Ora mum funziona correttamente e da il suo
+	lavoro.
+	(mum_build.set_resolution): corretto il bug sul passaggio della
+	risoluzione errata passata al mum_build nel caso non sei prima
+	attivato il menu di selezione.
+
+	Ora si va alla ricerca dei bug e delle ultime modifiche da fare
+
+	* gui/windowBasic.py (windowBasic.__init_thread): aggiunta la
+	funziona di inith del thread
+	(windowBasic.delete_event): finalmente funziona sto stop del
+	thread e non blocca la gui. Ora da definire il comportamento.
+
+2004-03-05  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* gui/ask_ftp.py (ask_ftp): primo port a gtk2 dell'ask_ftp per
+	ripotare la funzionalita nel dialog di upload.
+
+	* gui/progressDialog.py (progress_dialog): il dialog funziona in
+	gtk2!
+	utilizzo dei thread. una giornata di studio, ma ora funziona alla
+	perfezione.
+	debug, ottimizzazione e ultime correzioni cosi' da poter
+	rilasciare mum 1.2
+	(progress_dialog.run): ora il dialo si chiude in maniera corretta.
+
+2004-02-29  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+	
+	* gui/windowBasic.py (windowBasic.__do_layout) 
+	(windowBasic.__pack_label_hig): funzione che indenta i label di testo.
+	(windowBasic.__do_layout): corretti i label in modo da seguire la
+	HIG.
+	La gui ora mi piace molto di piu'. Mi rimane un dubbio sul fato
+	dell'opzione delle risoluzione. Sono tre, e consigliano di fare
+	una checklist, .. ma sei implemento nuove risoluzioni ?
+
+	* gui/about.py (About.__init__): impostato il dialogo come non
+	modale, ma pere non funzionare.
+
+	* gui/windowBasic.py (windowBasic.__do_layout): sistemati i
+	bottonidi controllo, ora appiono in  maniera corretta. Da definire
+	i label, in quanto quelli di default non sono granche'.
+	(windowBasic.__init__): aggiunti gtk.STOCK_HELP e
+	gtk.STOCK_EXECUTE. Molto piu' carini di quelli di prima.
+	(windowBasic.__init__): impostata la grandezza minima
+	dell'immagine. e L'allignamento.
+	(windowBasic.__do_layout): impostato l'allineamento dei widget dei
+	label. Ora mi piace di piu', da verificare la correttezza con la hig.
+
+2004-02-28  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* gui/windowBasic.py (windowBasic.__do_layout): tolto il botton
+	close.
+	controllare sulla HIG se ha senso. Rivedere la gui dopo la lettura
+	della HIG di gnome.
+	(windowBasic.next): corretto self.checkboxWeb.get_active(), ora
+	controlla la presenza dei parametri web.
+
+2004-02-27  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* gui/windowBasic.py (windowBasic.__init__): impostato il thema di
+	default e sensitive del bottone. Inoltre controlla che la voce sia
+	un elemento presente nell'array dei themi.
+
+	* gui/preview.py (show_preview.__init__): visualizza l'anteprima
+	dell'immagine.
+	
+	* gui/windowBasic.py (windowBasic.__init__): aggiunte
+	self.__theme e self.__resolution per le impostazioni.
+	(windowBasic.__init__): impostato l'ordine della selezione.
+	
+
+2004-02-26  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* gui/windowBasic.py (windowBasic.web): corretto in get_active()
+	per il funzionamento del checkbox
+	(windowBasic.__do_layout): cambiato il layout. tabellati la scelta
+	della risoluzione e del thema.
+	(windowBasic.__set_properties): impostato il titolo, le icone, non
+	resizable e la posizione centrale.
+	(windowBasic.__do_layout): corretto il layout, ora e' un'unica
+	gtk.Table
+	(windowBasic.__init__): impostato i label in grassetto.
+	(windowBasic.__select_theme): self.__theme per sapere il valore
+	impostasto del thema.
+
+2004-02-13  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* gui/windowBasic.py (windowBasic.__init__): merge delle funzione
+	di windowBasic e windowAdvance. Ora e' da fare funzionare e da
+	sistemare la gui, ora davvero orrenda. molto belle le gtk :D
+
+	* gui/callback.py (my_call.empty_field): convertito messaggio
+	informazione.
+	(my_call.select_dir): portao la scelta della dir sotto gtk2. da
+	raffinare il controllo sui file.
+
+	* gui/windowBasic.py (windowBasic.__do_layout): 
+	completato porting a gtk2 del layout
+	(windowBasic.next): convertita funzione in gtk2
+	(windowBasic): prima fase di conversione ultimata.
+	ora windowBasic e' tutta in gtk. convertiamo gli altri file
+	e poi rifiniamo i layout e debug
+
+	* mum-wx.py: corretto l'importazione della classe
+
+2004-02-07  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* gui/windowBasic.py (windowBasic.__init__): 
+	inziato il porting sotto pygtk2, prima passi di conversione.
+	(windowBasic.__set_properties): convertita a gtk2
+	(windowBasic.__init__): convertia a gtk2
+
+2003-12-21  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+        ==================== mum 1.1
+	
+	* mum.py: conversione completata, rilascio 1.1 versione di svilupp
+	con le nuove lib (ancora da completare il test completo )
+
+	* conversione da pthumb a mum. Ora finalmente e' possibile il
+	rilascio sotto gpl!
+	
+
+2003-12-12  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* sistemati alcune classi con le nuove funzioni di init
+
+	* html_gallery.py: utilizzate le funzioni di init 
+	del sistema per il controllo nel costruttore.
+
+2003-09-23  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* app/lib2/html_gallery.py (html_gallery.build): controllo
+	che le variabili abbiano un valore diverso da None.
+
+2003-09-20  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* aggiunta la dir py-win che contiene i file necessari per
+	la realizzazione del packages sotto win
+
+2003-09-18  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* app/lib2/html_gallery.py (html_gallery.__init__): 
+	aggiornata con le set_* function
+
+	* app/lib2/html.py (html.__init__): nuova versione delle lib.
+	si aggiungono tutti i metodi set_* per essere piu' facile da
+	utilizzare senza passare per un costrutture di 2 righe!
+
+2003-07-30  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* ========== pThumb 1.0 
+
+	* cambio nome da mum ( codename ) a pThumb.
+
+	* app/gui/about.py (About.__init__): aggiunto About Dialog per informar
+
+	* app/gui/label.py (MUM_TITLE_WINDOW): corretto il nome in pThumb
+
+	* app/gui/windowBasic.py (windowBasic.__do_layout): add About Button.
+
+	* app/gui/progressDialog.py (progress_dialog.__update_index):
+	utilizzati self.Web* per i dati necessari alla connessione.
+	(progress_dialog.__upload_gallery): utilizzati self.Web* per
+	memorizzare i dati modificati dai dialog in caso di errori.
+
+	* app/lib/constants.py (MUM_INDEX_WEB_INFO): aggiunta info sul non
+	rimuovere le stringa mum:new album
+
+2003-07-24  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* ======= mum 0.6
+
+	* correte stringhe 
+
+2003-07-20  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* ======= mum 0.5
+
+2003-07-19  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* app/gui/progressDialog.py (progress_dialog.__upload_gallery): 
+	except in caso di caduta di connessione durante l'upload.
+
+	* app/gui/windowAdvance.py (windowAdvance.__init__): fix order tab
+
+	* app/gui/windowBasic.py (windowBasic.__init__): fix order tab
+
+	* ========== mum 0.4
+
+	* app/lib/utils.py (utility.copy_img): evitata la copia di
+	example.png per ora hardcoded il nome del file per non aggiungere
+	la dipendenza della lib dalla gui
+
+	* app/gui/windowAdvance.py (windowAdvance.__init__): aggiunto
+	bottone preview per il thema, esso visualizzata in un dialog
+	l'immagina example.png presente nella dir $NOME_THEMA
+
+	* app/gui/progressDialog.py (progress_dialog.run): 
+	riconfigurazione dei form TitleAlbum, SourceAlbum, DestAlbum
+	per indicare che il programma e' pronto per eseguire la creazione
+	di una nuova gallery
+
+2003-07-18  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* ============ mum 0.3
+
+	* vari fix e Sistemato L'import di Image. Ora compila con py2exe.
+
+	* app/gui/progressDialog.py (progress_dialog.__num_op): 
+	fix numero max :)
+
+2003-07-17  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* app/gui/windowBasic.py (windowBasic.__init__): tab navigation
+	now work! ma che fatica! :)
+	(windowBasic.next): *.SetFocus() per i widget con gli errori
+
+	============== mum 0.2 
+	
+	* Nuova versione con diversi bugfix e new UI code	
+
+	* app/template/NeatSquare/image.html: fix color
+
+	* app/gui/windowBasic.py (windowBasic.__do_layout): riscritta
+	completamente la gui! ora si che e' quasi bella da vedere. ultimi tirocchi
+
+	* app/mum.py (main): ora e' possibile lancira mum da qualsiasi
+	path. corretto anche il caricamenteo dei file :)
+
+2003-07-16  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* app/lib/update_ftp.py (update_ftp.__init__): corretto il path
+	iniziale con '.' al posto di '/', ora rimane nella dir corrente
+
+	* app/gui/progressDialog.py (progress_dialog.__update_index):
+	corretto il riferinto a RootDir
+	(progress_dialog.__upload_gallery): corretto il riferimento a RootDir
+
+	* app/gui/windowBasic.py (windowBasic.next): fix "Folder Gallery
+	non deve svuotarsi in caso di errore"
+	(windowBasic.__init__): implement Folder Ftp 
+
+	* fix errore di battitura
+
+	* terminato! mancano alcuni cleanup del code, sistemazioni delle
+	stringhe varie degli ultimi giorni. ma funziona tutto, credo:)
+	gestione degli errori ftp, cancellazione dell progress dialog.
+	ora ci diamo alle rifiniture
+
+2003-07-11  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* app/lib/update_ftp.py:  terminato il lavoro sul backend!
+	che dire, bello il python, comodo, veloce, segue le tue idee ..
+	solo una lib non mi e' piaciuta, ftplib, che casino per gettare un file.
+
+2003-07-10  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* app/lib/html_gallery.py (html_gallery.__build_page_thumb):
+	correzzione bug per quanto riguarda il numero di pagine
+
+2003-07-09  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* doc/analasi.txt: doc sulla struttura ed implementazione dei mum
+

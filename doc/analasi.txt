@@ -1,0 +1,73 @@
+==== Stuttura directory app
+
+lib/ ( backend dell'applicazione )
+gui/ ( gui )
+template/ ( template html per le pagine )
+main.py ( lancio del programma )
+
+=== Struttura web-gallery
+
+ogni album deve essere contenuto in una direttory differente cosi' realizzata
+
+/index[|N].html sono la lista di tutte le immagine presenti nella
+		gallery
+/thumb/         sono le immagine di grandezza 120x80 ??
+/size-$size/    cartella contetne le immagini di dimensione
+		$size={640x480 , 800x600 , 1024x768 }
+/html/          cartella contente i file html in fomrato nome_immagine.html
+
+sul web viene creata una nuova directory di nome $galleria decisa
+dall'utente e viene, se desiderato dall'utente. aggiornato il file
+index.html della root
+ 
+Gli index delle gallery sono formati da tabelle 4x4 contente i thumb
+delle immagine.
+
+L'upload avviene tramite ftp
+
++ controllare che l'utente quando l'album non vada gia a sovrascrivere
+un album gia' presente
++ ordinare l'album in base all'ordinamento presente nella dir
++ controllo che non esiste gia' un album sul ftp con quel nome
++ estrazioni dati delle immagini jpeg con la lib exif 
+(? quali informazion inserire nella gallery ?)
+(? sicuri che ci siano i commenti ?)
+
+
+=== Backend
+
+- estrazioni info da jpeg e tiff by exif -> Libreria Exif.py trovata
+  su web
+
+- thumb -> realizzazone dei thumb nelle diverse risoluzione necessarie
+ 
+   thumb(path_delle_img,path_destinazione,size);
+ 
+   html_gallery(path_tumb,list_sorted,row,colum,template,title)
+   
+   html_slide(path_size,list_sorted,title,template)
+
+   update_ftp(path_img,host,login,pwd)
+
+   update_index(host,login,pwd,title,path)
+
+
+=== Gui
+
+Fisr Window:
+
+- path source img
+- path destinazione gallery
+
+- titolo gallerya
+
+- host
+- login
+- pwd
+
+Second Window:
+
+- Index update
+- Resize Resolution
+- Option Colums/Row
+- Thema 
