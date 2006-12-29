@@ -148,7 +148,7 @@ class mum_build(Thread):
         self.__set_status_bar(error)
         gtk.gdk.threads_enter()
         self.statusbar.pop(self.id_status)
-        gtk.threads_leave()
+        gtk.gdk.threads_leave()
 
     def __set_status_bar(self,messaggio):
         gtk.gdk.threads_enter()
@@ -206,30 +206,30 @@ class mum_build(Thread):
     def __create_thumb(self):
         # create thumb
         self.__set_status_bar(label.MUM_PROGDIALOG_THUMB)
-        gtk.threads_enter()
+        gtk.gdk.threads_enter()
         self.progressbar.set_fraction(self.count/self.total)
-        gtk.threads_leave()
+        gtk.gdk.threads_leave()
         thumb = mthumb(self.source_album,
                        os.path.join(self.dest_album,constants.DIR_THUMB),
                        constants.IMAGE_SIZES[0])
         while self.__attendi() and thumb.next():
-            gtk.threads_enter()
+            gtk.gdk.threads_enter()
             self.progressbar.set_fraction(self.count/self.total)
-            gtk.threads_leave()
+            gtk.gdk.threads_leave()
             self.count +=1
             
     def __resize(self):
         # rezise image
         self.__set_status_bar(label.MUM_PROGDIALOG_IMAGE)
-        gtk.threads_enter()
-        gtk.threads_leave()
+        gtk.gdk.threads_enter()
+        gtk.gdk.threads_leave()
         thumb = mthumb(self.source_album,
                        os.path.join(self.dest_album,constants.DIR_RESIZE),
                        constants.IMAGE_SIZES[self.resolution])
         while self.__attendi() and thumb.next():
-            gtk.threads_enter()
+            gtk.gdk.threads_enter()
             self.progressbar.set_fraction(self.count/self.total)
-            gtk.threads_leave()
+            gtk.gdk.threads_leave()
             self.count +=1
 
     def __build_html(self):
@@ -294,9 +294,9 @@ class mum_build(Thread):
         try:
             self.__set_status_bar(label.MUM_PROGDIALOG_SITE)
             while self.__attendi() and upstr.next():
-                gtk.threads_enter()
+                gtk.gdk.threads_enter()
                 self.progressbar.set_fraction(self.count/self.total)
-                gtk.threads_leave()
+                gtk.gdk.threads_leave()
                 self.count +=1
                 # end upload
                 

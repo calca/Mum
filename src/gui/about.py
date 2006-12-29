@@ -37,42 +37,21 @@ import info
 
 class About:
     def __init__(self,parent):
-        
-        self.dialog=gtk.Dialog(label.MUM_TITLE_WINDOW,
-                               parent,
-                               gtk.DIALOG_DESTROY_WITH_PARENT,
-                               ( gtk.STOCK_CLOSE, gtk.RESPONSE_ACCEPT )
-                               )
-        
-        logo = gtk.Image()
-        logo.set_from_file(label.MUM_ICON)
-        app_name = gtk.Label()
-        app_name.set_markup("<span size='xx-large'><b>"+info.MUM_NAME+' '+info.MUM_VERSION+'</b></span>')
-        copyright = gtk.Label()
-        copyright.set_label(info.MUM_COPYRIGHT)
-        copyright.set_selectable(True)
-        author = gtk.Label()
-        author.set_label(info.MUM_AUTHOR)
-        author.set_selectable(True)
-        description = gtk.Label()
-        description.set_label(info.MUM_DESCRIPTION)
-        description.set_justify(gtk.JUSTIFY_CENTER)
-        description.set_selectable(True)
-        
-        self.dialog.set_resizable(False)
-         
-        self.dialog.vbox.pack_start(logo)
-        self.dialog.vbox.pack_start(app_name)
-        self.dialog.vbox.pack_end(copyright)
-        self.dialog.vbox.pack_end(author)
-        self.dialog.vbox.pack_end(description)
-        self.dialog.vbox.set_spacing(8)
-        self.dialog.vbox.set_border_width(4)
-        self.dialog.vbox.show_all()
-        
+               
 
-        self.dialog.set_has_separator(False)
-        self.dialog.set_modal(False)
+	icon = gtk.gdk.pixbuf_new_from_file(label.MUM_ICON)
+      
+        self.dialog=gtk.AboutDialog()
+	self.dialog.set_icon_list(icon)
+	self.dialog.set_name(label.MUM_TITLE_WINDOW)
+	self.dialog.set_version(info.MUM_VERSION)
+	self.dialog.set_comments(info.MUM_DESCRIPTION)
+	self.dialog.set_license(info.MUM_LICENSE)
+	self.dialog.set_copyright(info.MUM_COPYRIGHT)
+	self.dialog.set_authors(info.MUM_AUTHOR)
+	self.dialog.set_website(info.MUM_WEBSITE)
+	self.dialog.set_logo(icon)
+  
         self.dialog.run()
         self.dialog.destroy()
 

@@ -33,8 +33,8 @@
 ''' Main File '''
 
 
-__version__ = '1.2.0'
-__author__ = 'Gianluigi Calcaterra <calca@tiscali.it>'
+__version__ = '1.3.1'
+__author__ = 'Gianluigi Calcaterra <gianluigi.calcaterra@gmail.com>'
 
 import os, sys
 

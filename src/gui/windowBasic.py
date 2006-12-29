@@ -33,6 +33,7 @@ Mum main window
 
 
 import gtk
+import gobject
 
 import re,time
 
@@ -57,11 +58,14 @@ class windowBasic:
         self.TitleLabel = gtk.Label(label.MUM_TITLE_GALLERY)
         self.TitleAlbum = gtk.Entry(60)
         self.FolderLabel = gtk.Label(label.MUM_FOLDER_IMAGES)
-        self.SourceAlbum = gtk.Entry()
-        self.BrowserButtonSource =gtk.Button(label.MUM_BROWSER)
+	# Browser Button
+	self.BrowserButtonSource=gtk.FileChooserButton('Select a Folder Source') 
+	self.BrowserButtonSource.set_action(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
+	self.BrowserButtonSource.set_current_folder(os.path.expanduser('~')+os.path.sep)
         self.FolderGalleryLabel = gtk.Label(label.MUM_FOLDER_GALLERY)
-        self.DestAlbum = gtk.Entry()
-        self.BrowserButtonDest = gtk.Button(label.MUM_BROWSER)
+	self.BrowserButtonDest=gtk.FileChooserButton('Select a Folder Destination')
+	self.BrowserButtonDest.set_action(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
+	self.BrowserButtonDest.set_current_folder(os.path.expanduser('~')+os.path.sep)
         self.checkboxWeb = gtk.CheckButton(label.MUM_UPLOAD)
         self.LabelFtpAdress = gtk.Label(label.MUM_FTP_ADDRESS)
         self.WebUrl =gtk.Entry()
@@ -78,27 +82,19 @@ class windowBasic:
         self.Aboutbutton = gtk.Button(label.MUM_ABOUT,gtk.STOCK_HELP)
         # Option menu Resolution
         self.ResolutionLabel = gtk.Label(label.MUM_RESOLUTION)
-        self.ResolutionMenu = gtk.OptionMenu()
-        menu = gtk.Menu()
-        self.__select_resolution(None,label.MUM_LABEL_RES[0])
+        self.ResolutionMenu = gtk.combo_box_new_text()
         for i in label.MUM_LABEL_RES:
-            item = gtk.MenuItem (i)
-            item.connect("activate",self.__select_resolution,i)
-            menu.append(item)
-        self.ResolutionMenu.set_menu(menu)
+            self.ResolutionMenu.append_text(i)
+        self.ResolutionMenu.set_active(0)
         self.PreviewButton = gtk.Button(label.MUM_PREVIEW)
         self.PreviewLabel = gtk.Label(label.MUM_ALBUM_THEME)
-        # Option menu PreviewResolution
-        self.PreviewMenu = gtk.OptionMenu()
-        menu = gtk.Menu()
-        lista = label.MUM_THEME_LIST.keys() 
-        lista.reverse()
-        self.__select_theme(None,lista[0])    
-        for i in lista:
-            item = gtk.MenuItem(i)
-            item.connect("activate",self.__select_theme,i)
-            menu.append(item)
-        self.PreviewMenu.set_menu(menu)
+        # Option Menu Theme
+        self.PreviewMenu = gtk.combo_box_new_text()
+        self.ListaThemes = label.MUM_THEME_LIST.keys() 
+        self.ListaThemes.reverse()
+        for i in self.ListaThemes:
+            self.PreviewMenu.append_text(i)
+        self.PreviewMenu.set_active(0)
 
         # progressbar
         self.progressbar= gtk.ProgressBar()
@@ -119,8 +115,6 @@ class windowBasic:
         self.__init_thread()
         
         # event
-        self.BrowserButtonSource.connect("clicked",self.button_source)
-        self.BrowserButtonDest.connect("clicked",self.button_dest)
         self.Nextbutton.connect("clicked",self.next)
         self.Closebutton.connect("clicked",self.button_close)
         self.Aboutbutton.connect("clicked",self.button_about)
@@ -175,11 +169,9 @@ class windowBasic:
         grid_gal.attach(self.__pack_label_hig(self.TitleLabel), 0, 1, 1, 2)
         grid_gal.attach(self.TitleAlbum, 1, 2, 1, 2 )
         grid_gal.attach(self.__pack_label_hig(self.FolderLabel), 0, 1, 2, 3)
-        grid_gal.attach(self.SourceAlbum, 1, 2, 2, 3 )
-        grid_gal.attach(self.BrowserButtonSource, 2, 3, 2, 3 )
+        grid_gal.attach(self.BrowserButtonSource, 1, 2, 2, 3 )
         grid_gal.attach(self.__pack_label_hig(self.FolderGalleryLabel), 0, 1, 3, 4 )
-        grid_gal.attach(self.DestAlbum, 1, 2, 3, 4 )
-        grid_gal.attach(self.BrowserButtonDest, 2, 3, 3, 4)
+        grid_gal.attach(self.BrowserButtonDest, 1, 2, 3, 4)
         grid_gal.attach(self.__pack_label_hig(self.ResolutionLabel), 0, 1, 4, 5)
         grid_gal.attach(self.ResolutionMenu, 1, 2, 4, 5)
         grid_gal.attach(self.__pack_label_hig(self.PreviewLabel), 0, 1, 5, 6)
@@ -227,27 +219,7 @@ class windowBasic:
         layout_page.pack_start(stat)
         
         self.window.add(layout_page)
-
         
-    def button_source(self,e):
-        # select a new folder image
-        # rebuild a new gallery
-        # safe upload
-        if self.__upload_only:
-            self.reset_progressbar(None,None)
-            self.TitleAlbum.set_text("")
-            self.DestAlbum.set_text("")
-            self.Nextbutton.set_label(gtk.STOCK_EXECUTE)
-            self.__upload_only = False
-        
-        d = my_call()
-        d.select_dir(self.SourceAlbum,"source",False,self.SourceAlbum.get_text())
-        dir = ''
-        if dir:
-                     
-            self.SourceAlbum.set_text(dir)
-            if not os.path.isdir(self.DestAlbum.get_text()):
-                self.DestAlbum.set_text(dir)
             
     def web(self,e):
         
@@ -283,7 +255,6 @@ class windowBasic:
         self.TitleLabel.set_sensitive(True)
         self.TitleAlbum.set_sensitive(True)
         self.FolderLabel.set_sensitive(True)
-        self.SourceAlbum.set_sensitive(True)
         self.BrowserButtonSource.set_sensitive(True)
         self.ResolutionLabel.set_sensitive(True)
         self.ResolutionMenu.set_sensitive(True)
@@ -291,7 +262,6 @@ class windowBasic:
         self.PreviewLabel.set_sensitive(True)
         self.PreviewMenu.set_sensitive(True)
         self.FolderGalleryLabel.set_sensitive(True)
-        self.DestAlbum.set_sensitive(True)
         self.BrowserButtonDest.set_sensitive(True)
         self.checkboxWeb.set_sensitive(True)
         self.Closebutton.set_sensitive(True)
@@ -304,10 +274,8 @@ class windowBasic:
         self.TitleLabel.set_sensitive(False)
         self.TitleAlbum.set_sensitive(False)
         self.FolderLabel.set_sensitive(False)
-        self.SourceAlbum.set_sensitive(False)
         self.BrowserButtonSource.set_sensitive(False)
         self.FolderGalleryLabel.set_sensitive(False)
-        self.DestAlbum.set_sensitive(False)
         self.BrowserButtonDest.set_sensitive(False)
         self.ResolutionLabel.set_sensitive(False)
         self.ResolutionMenu.set_sensitive(False)
@@ -318,17 +286,6 @@ class windowBasic:
         self.Closebutton.set_sensitive(False)
         self.Aboutbutton.set_sensitive(False)
         self.__disable_web()
-
-    def button_dest(self,e):
-
-        # safe upload
-        if self.__upload_only:
-            self.reset_progressbar(None,None)
-            self.Nextbutton.set_label(gtk.STOCK_EXECUTE)
-            self.__upload_only = False
-            
-        d = my_call()
-        d.select_dir(self.DestAlbum,"dest",True,self.DestAlbum.get_text())
 
     def next(self,e):
 
@@ -360,47 +317,45 @@ class windowBasic:
             self.TitleAlbum.grab_focus()
             return
         
-        if not utility().count_img(self.SourceAlbum.get_text()):
+        if not utility().count_img(self.BrowserButtonSource.get_current_folder()):
             d = my_call()
             d.empty_field(self.window,label.MUM_ERROR_FOLDER_WHITOUT_IMAGES,
                           label.MUM_ERROR_FOLDER_WHITOUT_IMAGES_DES)
-            self.SourceAlbum.grab_focus()
+            self.BrowserButtonSource.grab_focus()
             return
         
-        if self.SourceAlbum.get_text() == '' or not os.path.isdir(self.SourceAlbum.get_text()):
-            self.SourceAlbum.SetValue(os.path.expanduser('~'))
+        if not os.path.isdir(self.BrowserButtonSource.get_current_folder()):
             d = my_call()
             d.empty_field(self.window,label.MUM_ERROR_FOLDER_IMAGE,label.MUM_ERROR_FOLDER_IMAGE_DES)
-            self.DestAlbum.grab_focus()
             return
         
-        if self.DestAlbum.get_text() == '' or not os.path.isdir(self.DestAlbum.get_text()):
+        if not os.path.isdir(self.BrowserButtonDest.get_current_folder()):
             d = my_call()
             d.empty_field(self.window,label.MUM_ERROR_FOLDER_DEST,label.MUM_ERROR_FOLDER_DEST_DES)
-            self.DestAlbum.grab_focus()
+            self.BrowserButtonDest.grab_focus()
             return
 
-        if not utility().dir_is_empty(self.DestAlbum.get_text()) and not self.__upload_only:
+        if not utility().dir_is_empty(self.BrowserButtonDest.get_current_folder()) and not self.__upload_only:
             d = my_call()
             d.empty_field(self.window,label.MUM_ERROR_FOLDER_DEST_NOT_EMPTY,
                           label.MUM_ERROR_FOLDER_DEST_NOT_EMPTY_DES)
-            self.DestAlbum.grab_focus()
+            self.BrowserButtonDest.grab_focus()
             return
         
-        if self.DestAlbum.get_text() == self.SourceAlbum.get_text():
+        if self.BrowserButtonDest.get_current_folder() == self.BrowserButtonSource.get_current_folder():
             d = my_call()
             d.empty_field(self.window,label.MUM_ERROR_FOLDER,label.MUM_ERROR_FOLDER_DES)
-            self.DestAlbum.grab_focus()
+            self.BrowserButtonDest.grab_focus()
             return
 
         # show dir have space.
-        if os.path.isdir(self.DestAlbum.get_text()):
-            a, dir =os.path.split(self.DestAlbum.get_text())
+        if os.path.isdir(self.BrowserButtonDest.get_current_folder()):
+            a, dir =os.path.split(self.BrowserButtonDest.get_current_folder())
             if  dir.count(' '):
                 d = my_call()
                 d.empty_field(self.window,label.MUM_ERROR_SPACE_IN_FOLDER
                               ,label.MUM_ERROR_SPACE_IN_FOLDER_DES)
-                self.DestAlbum.grab_focus()
+                self.BrowserButtonDest.grab_focus()
                 return
             
         if self.checkboxWeb.get_active():    
@@ -428,11 +383,11 @@ class windowBasic:
         # re init_thread
         self.__init_thread()
        
-        self.th_mum_build.set_theme(self.__theme)
-        self.th_mum_build.set_resolution(self.__resolution)
+        self.th_mum_build.set_theme(self.ListaThemes[self.PreviewMenu.get_active()])
+        self.th_mum_build.set_resolution(self.ResolutionMenu.get_active())
         self.th_mum_build.set_title_album(self.TitleAlbum.get_text())
-        self.th_mum_build.set_source_album(self.SourceAlbum.get_text())
-        self.th_mum_build.set_dest_album(self.DestAlbum.get_text())
+        self.th_mum_build.set_source_album(self.BrowserButtonSource.get_current_folder())
+        self.th_mum_build.set_dest_album(self.BrowserButtonDest.get_current_folder())
         if  self.checkboxWeb.get_active():
             self.th_mum_build.set_enable_web()
             self.th_mum_build.set_web_url(self.WebUrl.get_text())
@@ -497,8 +452,8 @@ class windowBasic:
         self.__upload_only = False
         
         self.TitleAlbum.set_text("")
-        self.SourceAlbum.set_text("")
-        self.DestAlbum.set_text("")
+	self.BrowserButtonSource.set_current_folder(os.path.expanduser('~')+os.path.sep)
+	self.BrowserButtonDest.set_current_folder(os.path.expanduser('~')+os.path.sep)
 
         self.window.window.set_cursor(None)
 
@@ -552,7 +507,7 @@ class windowBasic:
         
 
     def button_preview(self,e):
-        img=os.path.join(label.MUM_THEME_LIST[self.__theme],constants.MUM_THEME_PREVIEW)
+        img=os.path.join(label.MUM_THEME_LIST[self.ListaThemes[self.PreviewMenu.get_active()]],constants.MUM_THEME_PREVIEW)
         dlg=show_preview(self.window,img)
         
     

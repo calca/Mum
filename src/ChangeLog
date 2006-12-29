@@ -1,4 +1,25 @@
+2006-12-29  gianluigi.calcaterra@gmail.com
+
+	* port to pygtk 2.10 
+
+2004-12-22  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* lib/update_ftp_index.py (update_ftp_index.__update_index): 
+	corretto il warning sul file temporaneo
+
+2004-11-17  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+
+	* gui/callback.py (my_call.select_dir): ported to new FileChooser Widget
+	(my_call.select_dir): now is parentd, via parent var.
+	(my_call.select_dir): work fine now
+
+	* gui/windowBasic.py (windowBasic.__init__): 
+	new gtk.combo_box widget for list of theme and resolution.
+
 2004-03-13  Gianluigi Calcaterra  <gianluigi.calcaterra@milug.org>
+	* Rilasicato Mum 1.2.0 ===========================================
+
+	* bump to 1.2.0
 
 	* gui/windowBasic.py (windowBasic.__stop_mum_build): fix busy cursor.
 

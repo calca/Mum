@@ -42,45 +42,7 @@ class my_call:
     def __init__(self):
         pass
 
-    
-    def select_dir(self,parent,check,create_dir,default):
-        self.path=''
-        self.dlg = gtk.FileSelection(label.MUM_SELECT_DIR)
-        self.parent=parent
-        self.check=check
-        
-        if create_dir:
-            self.dlg.show_fileop_buttons()
-        else:
-            self.dlg.hide_fileop_buttons()
-             
-        if not default == '' and os.path.isdir(default):
-            self.dlg.set_filename(default+os.path.sep)
-        else:
-            self.dlg.set_filename(os.path.expanduser('~')+os.path.sep)
-
-        self.dlg.ok_button.connect("clicked", self.return_ok)   
-        # Connect the cancel_button to destroy the widget
-        self.dlg.cancel_button.connect("clicked",
-                                  lambda w: self.dlg.destroy())
-
-        # don't select file
-        self.dlg.file_list.set_sensitive(False)
-        
-        self.dlg.show()
-
-    def return_ok(self,e):
-        dir = self.dlg.get_filename()
-        if self.check == "source":
-            if self.__check_source(dir):
-                self.parent.set_text(dir)
-                self.dlg.destroy()
-        if self.check == "dest":
-            if self.__check_dest(dir):
-                self.parent.set_text(dir)
-                self.dlg.destroy()
-
-        
+       
     def __check_source(self,dir):
         if dir:
             if not utility().count_img(dir):
@@ -98,7 +60,7 @@ class my_call:
         return True
  
     def empty_field(self,parent,messaggio,spiegazione=""):
-        dialog = gtk.MessageDialog(parent=None,
+        dialog = gtk.MessageDialog(parent,
                                    flags=0,
                                    type=gtk.MESSAGE_WARNING,
                                    buttons=gtk.BUTTONS_NONE,
@@ -106,8 +68,7 @@ class my_call:
                                    )
         
         dialog.set_title(label.MUM_TITLE_WINDOW)
-        dialog.set_property("has-separator", False)       
-        dialog.vbox.get_children()[0].get_children()[1].set_property("use-markup", True)
+        dialog.set_property("use-markup", True)
         
         dialog.add_button(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE)
             
@@ -123,8 +84,7 @@ class my_call:
                                    )
         
         dialog.set_title(label.MUM_TITLE_WINDOW)
-        dialog.set_property("has-separator", False)       
-        dialog.vbox.get_children()[0].get_children()[1].set_property("use-markup", True)
+        dialog.set_property("use-markup", True)
         
         dialog.add_button(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL)
         dialog.add_button(gtk.STOCK_OK, gtk.RESPONSE_OK)

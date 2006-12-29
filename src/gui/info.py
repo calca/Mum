@@ -29,9 +29,11 @@
 ##  */
 
 MUM_NAME='mum'
-MUM_VERSION='1.2.0'
+MUM_VERSION='1.3.0'
 
-MUM_COPYRIGHT="Copyrigth 2003-2004 Gianluigi Calcaterra\n"
-MUM_AUTHOR="Author Gianluigi Calcaterra <calca@tiscali.it>"
+MUM_AUTHOR=["Gianluigi Calcaterra <gianluigi.calcaterra@gmail.com>"]
 
-MUM_DESCRIPTION="  This Program allows simple creation and \nupload of image galleries on a web site.\n\nWebsite http://nekton.mine.nu/projects/mum\n\nThis software is Free Software, relased under the GNU GPL  "
+MUM_WEBSITE="http://mum.sf.net"
+MUM_LICENSE="This software is Free Software, relased under the GNU GPL"
+MUM_COPYRIGHT="Copyrigth 2003-2006 Gianluigi Calcaterra"
+MUM_DESCRIPTION="This Program allows simple creation and \nupload of image galleries on a web site."
