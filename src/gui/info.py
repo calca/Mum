@@ -24,7 +24,7 @@
 ##  *  along with this program; if not, write to the Free Software
 ##  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 ##  *
-##  *  Copyright 2004 Calcaterra Gianluigi <gianluigi.calcaterra@tin.it>
+##  *  Copyright 2004 Calcaterra Gianluigi <gianluigi.calcaterra@gmail.com>
 ##  *
 ##  */
 
@@ -33,7 +33,7 @@ MUM_VERSION='1.3.0'
 
 MUM_AUTHOR=["Gianluigi Calcaterra <gianluigi.calcaterra@gmail.com>"]
 
-MUM_WEBSITE="http://mum.sf.net"
+MUM_WEBSITE="http://www.blog.duea.info/mum/"
 MUM_LICENSE="This software is Free Software, relased under the GNU GPL"
-MUM_COPYRIGHT="Copyrigth 2003-2006 Gianluigi Calcaterra"
+MUM_COPYRIGHT="Copyrigth 2003-2010 Gianluigi Calcaterra"
 MUM_DESCRIPTION="This Program allows simple creation and \nupload of image galleries on a web site."

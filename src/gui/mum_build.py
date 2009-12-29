@@ -27,7 +27,7 @@ upload on website
 ##  *  along with this program; if not, write to the Free Software
 ##  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 ##  *
-##  *  Copyright 2004 Calcaterra Gianluigi <gianluigi.calcaterra@tin.it>
+##  *  Copyright 2004 Calcaterra Gianluigi <gianluigi.calcaterra@gmail.com>
 ##  *
 ##  */
 
